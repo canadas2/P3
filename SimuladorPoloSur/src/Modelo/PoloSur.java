@@ -5,10 +5,41 @@
  */
 package Modelo;
 
+import java.util.ArrayList;
+import java.util.Random;
 /**
  *
  * @author raulg
  */
 public class PoloSur {
     
+    ArrayList<SerVivo> seres_vivos = new ArrayList();
+    
+    public PoloSur(){
+        
+    }
+    
+    private void creacionEsquimales(){
+        
+    }
+    
+    private void creacionOsosPolares(){
+        
+    }
+    
+    private void creacionMorsas(){
+        
+    }
+    
+    private void creacionFocas(){
+        
+    }
+    
+    private void creacionPeces(){
+        
+    }
+    
+    private void creacionKrillPlancton(){
+        
+    }
 }
