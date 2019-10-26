@@ -11,7 +11,6 @@ package Modelo;
  */
 public abstract class SerVivo {
     
-    
     private int dia_nac;
     
     private int por_masmusc;
@@ -34,5 +33,7 @@ public abstract class SerVivo {
     public void morir(){
         
     }
+    
+    
     
 }

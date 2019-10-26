@@ -16,11 +16,12 @@ public class PoloSur {
     ArrayList<SerVivo> seres_vivos = new ArrayList();
     
     public PoloSur(){
-        
+        creacionEsquimales();
     }
     
     private void creacionEsquimales(){
         
+        double individuos = Math.random();
     }
     
     private void creacionOsosPolares(){

@@ -5,6 +5,9 @@
  */
 package LauncherSimuladorPoloSur;
 
+import Modelo.PoloSur;
+
+
 /**
  *
  * @author raulg
@@ -15,7 +18,7 @@ public class LauncherPoloSur {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        PoloSur ps = new PoloSur();
     }
     
 }
