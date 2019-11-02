@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package VistaControlador;
+import Modelo.PoloSur;
 
 /**
  *
@@ -109,6 +110,7 @@ public class PoloSurFrame extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        PoloSur polo_sur = new PoloSur();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

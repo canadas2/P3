@@ -10,5 +10,8 @@ package Modelo;
  * @author raulg
  */
 public class Foca extends SerVivo{
-    
+    int dia;
+    public Foca(int dia, int masa){
+        super(dia,masa);
+    }
 }

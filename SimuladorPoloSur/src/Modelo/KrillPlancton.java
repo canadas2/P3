@@ -11,4 +11,7 @@ package Modelo;
  */
 public class KrillPlancton extends SerVivo{
     
+    public KrillPlancton(){
+        
+    }
 }
