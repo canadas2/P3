@@ -15,7 +15,9 @@ public class PoloSurFrame extends javax.swing.JFrame {
     /**
      * Creates new form PoloSurFrame
      */
+    PoloSur polo_sur;
     public PoloSurFrame() {
+        
         initComponents();
     }
 
@@ -47,6 +49,11 @@ public class PoloSurFrame extends javax.swing.JFrame {
         });
 
         jButton2.setText("Transcurrir un dia");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Mostrar detalles");
 
@@ -110,8 +117,13 @@ public class PoloSurFrame extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        PoloSur polo_sur = new PoloSur();
+         polo_sur= new PoloSur();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        polo_sur.transcurrirUnDia();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments

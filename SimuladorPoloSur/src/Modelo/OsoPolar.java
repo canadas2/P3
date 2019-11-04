@@ -12,15 +12,31 @@ import java.util.Random;
  * @author raulg
  */
 public class OsoPolar extends SerVivo{
-    int dia;
+    private int focas_comidas, peces_comidos;
+    
     public OsoPolar(int dia, int masa){
         super(dia,masa);
+    }
+
+    public int getFocas_comidas() {
+        return focas_comidas;
+    }
+
+    public int getPeces_comidos() {
+        return peces_comidos;
+    }
+    
+    
+    
+    public void Comer(){
+        focas_comidas = ComerFocas();
+        peces_comidos = ComerPeces();
     }
     
     public int ComerFocas(){
         Random rc_focas = new Random();
         int num_focas=1;
-        int foc =  rc_focas.nextInt(1);
+        int foc =  rc_focas.nextInt(2);
         if(foc == 1){
             num_focas = 1;
         }else if (foc == 0){
@@ -37,9 +53,10 @@ public class OsoPolar extends SerVivo{
          return num_peces;
     }
     
-    public void Resproducirse(){
-        
-        
+    public Boolean Reproducirse(){
+        Random rr = new Random();
+        double prob = 0.0+((rr.nextDouble()*(1.0-0.0)));
+        return prob <= 0.153;
     }
     
     public void Morir(){

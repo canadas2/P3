@@ -12,14 +12,31 @@ import java.util.Random;
  * @author raulg
  */
 public class Morsa extends SerVivo{
-    int dia;
+    
+    private int osos_comidos, focas_comidas;
+    
     public Morsa(int dia, int masa){
+        
         super(dia,masa);
+    }
+
+    public int getOsos_comidos() {
+        return osos_comidos;
+    }
+
+    public int getFocas_comidas() {
+        return focas_comidas;
+    }
+    
+    
+    public void Comer(){
+        osos_comidos = ComerOsos();
+        focas_comidas = ComerFocas();
     }
     
     public int ComerOsos(){
         Random rc = new Random();
-        int num_osos = rc.nextInt(2-1+1)+1;
+        int num_osos = rc.nextInt(3);
         
         return num_osos;
     }
@@ -31,8 +48,10 @@ public class Morsa extends SerVivo{
         return num_focas;
     }
     
-    public void Reproducirse(){
-        
+    public Boolean Reproducirse(){
+        Random rr = new Random();
+        double prob = 0.0+((rr.nextDouble()*(1.0-0.0)));
+        return prob <= 0.098;
     }
     
     public void Morir(){

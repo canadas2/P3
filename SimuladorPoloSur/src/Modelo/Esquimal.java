@@ -13,22 +13,46 @@ import java.util.Random;
  */
 public class Esquimal extends SerVivo {
     
-    int dia;
+    private Boolean comer_focas_dia;
+    private int peces_comidos_dia;
     
     public Esquimal(int dia, int masa){
         super(dia,masa);
     }
     
+//    public int GetDiaNac(){
+//        return super.getDia_nac();
+//    }
+//    
+//    public int GetMasaCorp(){
+//        return super.getPor_masmusc();
+//    }
+
+    public Boolean getComer_focas_dia() {
+        return comer_focas_dia;
+    }
+
+    public int getPeces_comidos_dia() {
+        return peces_comidos_dia;
+    }
+
+
+    
+    public void Comer(){
+        peces_comidos_dia = ComerPeces();
+        comer_focas_dia = ComerFocas();
+    }
+    
     public int ComerPeces(){
         Random rc_peces = new Random();
-        int num_peces;
+        int num_peces=0;
         double prob = 0.0+((rc_peces.nextDouble()*(1.0-0.0)));
         
-        if(prob <= 1/3){
+        if(prob <= 0.333){
             num_peces = 2;
-        } else if ((prob <= (1/3)*2)&&(prob > 1/3)){
+        } else if ((prob <= 0.666)&&(prob > 0.333)){
             num_peces = 3;
-        } else{
+        } else if(prob > 0.666){
             num_peces = 4;
         }
         return num_peces;
@@ -37,7 +61,7 @@ public class Esquimal extends SerVivo {
     public Boolean ComerFocas(){
         Random rc_focas = new Random();
         Boolean come = false;
-        int foc =  rc_focas.nextInt(1);
+        int foc =  rc_focas.nextInt(2);
         if(foc == 1){
             come = false;
         }else if (foc == 0){
@@ -47,11 +71,15 @@ public class Esquimal extends SerVivo {
         return come;
     }
     
-    public void Reproducirse(){
+    public Boolean Reproducirse(){
         Random rr = new Random();
+        double prob = 0.0+((rr.nextDouble()*(1.0-0.0)));
+        return prob <= 0.032;
     }
     
     public void Morir(){
         Random rm = new Random();
     }
+    
+    
 }
