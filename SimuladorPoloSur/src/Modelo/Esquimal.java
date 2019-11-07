@@ -77,8 +77,10 @@ public class Esquimal extends SerVivo {
         return prob <= 0.032;
     }
     
-    public void Morir(){
+    public Boolean Morir(){
         Random rm = new Random();
+        int prob = rm.nextInt(1000-0+1)+1000;
+        return prob <= 24;
     }
     
     
