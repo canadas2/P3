@@ -14,10 +14,14 @@ import java.util.Random;
 public class Morsa extends SerVivo{
     
     private int osos_comidos, focas_comidas;
+    private int dia_nac;
+    private int masa_corp;
+    private String tipo = "Morsa";
     
     public Morsa(int dia, int masa){
-        
         super(dia,masa);
+        dia_nac = dia;
+        masa_corp = masa;
     }
 
     public int getOsos_comidos() {
@@ -54,8 +58,15 @@ public class Morsa extends SerVivo{
         return prob <= 0.098;
     }
     
-    public void Morir(){
-        
+    public Boolean Morir(){
+        Random rm = new Random();
+        int prob = rm.nextInt(1000);
+        return prob <= 95;
+    }
+
+    @Override
+    public String toString() {
+        return "Morsa{" + "dia_nac=" + dia_nac + ", masa_corp=" + masa_corp + '}';
     }
             
 }

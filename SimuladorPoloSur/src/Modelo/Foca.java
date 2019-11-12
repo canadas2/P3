@@ -12,9 +12,14 @@ import java.util.Random;
  * @author raulg
  */
 public class Foca extends SerVivo{
-    int dia;
+    private int dia_nac;
+    private int masa_corp;
+    private String tipo = "Foca";
+    
     public Foca(int dia, int masa){
         super(dia,masa);
+        dia_nac = dia;
+        masa_corp = masa;
     }
     
     public int Comer(){
@@ -29,7 +34,16 @@ public class Foca extends SerVivo{
         return true;
     }
     
-    public void Morir(){
-        
+    public Boolean Morir(){
+        Random rm = new Random();
+        int prob = rm.nextInt(1000);
+        return prob <= 90;
     }
+
+    @Override
+    public String toString() {
+        return "Foca{" + "dia_nac=" + dia_nac + ", masa_corp=" + masa_corp +'}';
+    }
+    
+    
 }

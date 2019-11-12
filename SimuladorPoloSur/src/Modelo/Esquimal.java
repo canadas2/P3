@@ -15,18 +15,16 @@ public class Esquimal extends SerVivo {
     
     private Boolean comer_focas_dia;
     private int peces_comidos_dia;
+    private int dia_nac;
+    private int masa_corp;
+    private String tipo = "Esquimal";
     
     public Esquimal(int dia, int masa){
         super(dia,masa);
+        dia_nac = dia;
+        masa_corp = masa;
     }
-    
-//    public int GetDiaNac(){
-//        return super.getDia_nac();
-//    }
-//    
-//    public int GetMasaCorp(){
-//        return super.getPor_masmusc();
-//    }
+
 
     public Boolean getComer_focas_dia() {
         return comer_focas_dia;
@@ -79,9 +77,16 @@ public class Esquimal extends SerVivo {
     
     public Boolean Morir(){
         Random rm = new Random();
-        int prob = rm.nextInt(1000-0+1)+1000;
+        int prob = rm.nextInt(1000);
+        System.out.println("prob de esquimal:"+prob);
         return prob <= 24;
     }
+
+    @Override
+    public String toString() {
+        return "Esquimal{" + "dia_nac=" + dia_nac + ", masa_corp=" + masa_corp + '}';
+    }
+    
     
     
 }

@@ -12,6 +12,9 @@ import java.util.Random;
 public class Pez extends SerVivo{
     
     String especie;
+    private int dia_nac;
+    private int masa_corp;
+    private String tipo = "Pez";
     
     
     public Pez(int dia, int masa){
@@ -55,4 +58,17 @@ public class Pez extends SerVivo{
         double prob = 0.0+((rr.nextDouble()*(1.0-0.0)));
         return prob <= 0.185;
     }
+    
+    public Boolean Morir(){
+        Random rm = new Random();
+        int prob = rm.nextInt(1000);
+        //System.out.println("prob de pez:"+prob);
+        return prob <= 163;
+    }
+
+    @Override
+    public String toString() {
+        return "Pez{" + "especie=" + especie + ", dia_nac=" + dia_nac + ", masa_corp=" + masa_corp +  '}';
+    }
+    
 }

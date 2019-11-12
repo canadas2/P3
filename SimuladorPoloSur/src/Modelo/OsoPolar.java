@@ -13,9 +13,14 @@ import java.util.Random;
  */
 public class OsoPolar extends SerVivo{
     private int focas_comidas, peces_comidos;
+    private int dia_nac;
+    private int masa_corp;
+    private String tipo = "Oso Polar";
     
     public OsoPolar(int dia, int masa){
         super(dia,masa);
+        dia_nac = dia;
+        masa_corp = masa;
     }
 
     public int getFocas_comidas() {
@@ -61,7 +66,15 @@ public class OsoPolar extends SerVivo{
     
     public Boolean Morir(){
         Random rm = new Random();
-        int prob = rm.nextInt(1000-0+1)+1000;
+        int prob = rm.nextInt(1000);
         return prob <= 95;
     }
+
+    @Override
+    public String toString() {
+        return "OsoPolar{" + "dia_nac=" + dia_nac + ", masa_corp=" + masa_corp +  '}';
+    }
+    
+    
+    
 }
