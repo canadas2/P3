@@ -19,9 +19,11 @@ public class PoloSur {
    private ArrayList<SerVivo> mueren_inanicion = new ArrayList(); //array donde almacenamos cada dia los que se mueren por falta de comida, para eliminarlos despues de la funcion comer.
    private ArrayList<SerVivo> nuevos = new ArrayList(); //array donde almacenamos los nuevos del metodo Reproducir, ya que si lo haces al momento da problema como en comer
    private ArrayList<SerVivo> muertos = new ArrayList();
-   private int dia = 1, num_osos_tot;
+   private int merluzas=0, bacalaos=0, rayas=0;
+   private int dia = 0, num_osos_tot,dia_extincion;
+   Boolean calent_global = false, buques = false;
    private int num_focas_elim=0,num_peces_elim=0,num_osos_elim=0;
-   private int temp_media_agua = 4; //faltaria usar esto para mostrarlo como info en la app, y para el crecimiento del crill.
+   private Double temp_media_agua = 4.0; //faltaria usar esto para mostrarlo como info en la app, y para el crecimiento del crill.
    private long num_krill_plancton;
    private int num_peces_esquimales = 0, num_focas_esquimales = 0, num_peces_osos = 0, num_focas_osos = 0;
    private int num_focas_morsa = 0, num_osos_morsa = 0, num_peces_foca = 0;
@@ -44,14 +46,123 @@ public class PoloSur {
         creacionKrillPlancton();
         System.out.println("-------SE HA CREADO EL NUEVO POLO SUR-------");
     }
+    
+    public void CalentamientoGlobal(){
+        temp_media_agua+=2.0;
+        calent_global = true;
+    }
+    
+    public Double getTemp(){
+        return temp_media_agua;
+    }
+    
+    public long getKrill(){
+        return num_krill_plancton;
+    }
+    
+    public Boolean getBuques(){
+        return buques;
+    }
+    
+    public Boolean getCalent(){
+        return calent_global;
+    }
+    
+    public void BuquesFurtivos(){
+        ArrayList<SerVivo> mueren = new ArrayList();
+        int osos=0, morsas=0;
+        buques = true;
+        for(int i=0; i<seres_vivos.size();i++){
+            SerVivo ser = seres_vivos.get(i);
+            if(ser instanceof OsoPolar){
+                Random rm = new Random();
+                int prob = rm.nextInt(100);
+                if(prob <= 15){
+                    mueren.add(ser);
+                    osos++;
+                }
+            }
+            if(ser instanceof Morsa){
+                Random rm = new Random();
+                int prob = rm.nextInt(100);
+                if(prob <= 20){
+                    mueren.add(ser);
+                    morsas++;
+                }
+            }
+        }
+        
+        for(int i=0; i < mueren.size();i++){
+            seres_vivos.remove(mueren.get(i));
+        }
+        System.out.println("mueren osos="+osos+"y morsas="+morsas);
+        
+        
+    }
 
     public ArrayList<SerVivo> getSeres_vivos() {
         return seres_vivos;
     }
     
+    public int getDia(){
+        return dia;
+    }
+    
+    public int getEsquimales(){
+        return esq_tot;
+    }
+    
+    public int getOsos(){
+        return osos_tot;
+    }
+    
+    
+    public int getMorsas(){
+        return morsa_tot;
+    }
+    
+    public int getFocas(){
+        return focas_tot;
+    }
+    
+    public int getPeces(){
+        return peces_tot;
+    }
+    
+    public void calcularEspeciesPez(){
+        
+        for(int i=0;i<seres_vivos.size();i++){
+            SerVivo ser = seres_vivos.get(i);
+            if(ser instanceof Pez){
+                String s = ((Pez) ser).getEspecie();
+                if(s == "merluza negra")
+                    merluzas++;
+                else if(s == "bacalao")
+                    bacalaos++;
+                if(s == "raya")
+                    rayas++;
+            }
+        }
+            
+    }
+    
+    public int getRayas(){
+        return rayas;
+    }
+    
+    public int getBacalaos(){
+        return bacalaos;
+    }
+    
+    public int getMerluzas(){
+        return merluzas;
+    }
+    
     
     
     public void transcurrirUnDia(){
+        dia++;
+        System.out.println("DIA "+dia+" EN EL POLO SUR--------------------------");
         System.out.println("COMER() a todos los seres vivos:");
         Comer();
         //ahora eliminamos todos los seres vivos comidos, hay que hacerlo despues de comer puesto que el array es dinamico y sino da problemas
@@ -66,11 +177,21 @@ public class PoloSur {
         
         System.out.println("MORIR() a todos los seres vivos:");
         Morir();
-        
-        dia++; //cuando finaliza el dia pasa al siguiente
+        int num_seres = esq_tot+osos_tot+morsa_tot+focas_tot+peces_tot;
+        System.out.println("Seres vivo al final del dia "+dia+" : "+num_seres);
+        System.out.println("numero de krill y plancton:"+num_krill_plancton);
+        if(num_seres<=0){
+            pararSimulacion();
+        }
+         //cuando finaliza el dia pasa al siguiente
         
     }
     
+    public void pararSimulacion(){
+        //enviar un mensaje del dia que se extinguen
+        
+        dia_extincion = dia;
+    }
     
     /*
     *funcion reproducirse para todos los seres vivos, con instanceof mira de que tipo es, y añade un nuevo individuo
@@ -90,6 +211,7 @@ public class PoloSur {
                     Esquimal esquimal = new Esquimal(dia,masa);
                     nuevos.add(esquimal);
                     num_esq++;
+                    esq_tot++;
                 }
                 
             }
@@ -101,6 +223,7 @@ public class PoloSur {
                     OsoPolar oso_polar = new OsoPolar(dia,masa);
                     num_osos++;
                     nuevos.add(oso_polar);
+                    osos_tot--;
                 }
             }
             else if(ser_vivo instanceof Morsa){
@@ -110,6 +233,7 @@ public class PoloSur {
                     Morsa morsa = new Morsa(dia,masa);
                     nuevos.add(morsa);
                     num_morsas++;
+                    morsa_tot--;
                 }
             }
             else if(ser_vivo instanceof Foca){
@@ -119,6 +243,7 @@ public class PoloSur {
                     Foca foca = new Foca(dia,masa);
                     nuevos.add(foca);
                     num_focas++;
+                    focas_tot--;
                 }
             }
             else if(ser_vivo instanceof Pez){
@@ -129,9 +254,13 @@ public class PoloSur {
                     Pez pez = new Pez(dia,masa,especie);
                     nuevos.add(pez);
                     num_peces++;
+                    peces_tot--;
                 }
             }
+        
         }
+        
+        crecimientoKrill();
         
         //añadimos ahora los nuevos hijos al vector de seres_vivos despues de reproducirse todos:
         for(int j = 0; j < nuevos.size(); j++){
@@ -142,7 +271,18 @@ public class PoloSur {
         System.out.println("Numero de esquimales que se reproducen:"+num_esq+", osos: "+num_osos+", morsas:"+num_morsas+", focas:"+num_focas+", peces:"+num_peces);
     }
     
-    
+    public void crecimientoKrill(){
+        if(temp_media_agua<3.0)
+            System.out.println("krill no crece");
+        else if(temp_media_agua>=3.0 && temp_media_agua<4.0)
+            num_krill_plancton+=18000000000L;
+        else if(temp_media_agua>=4.0 && temp_media_agua<5.0)
+            num_krill_plancton+=22000000000L;
+        else if(temp_media_agua>=5.0 && temp_media_agua<5.5)
+            num_krill_plancton+=12000000000L;
+        else if(temp_media_agua>=3.0)
+            System.out.println("krill no crece");
+    }
     
     //funcion para que realicen la funcion morir todos los seres vivos
     public void Morir(){
@@ -155,6 +295,7 @@ public class PoloSur {
                 if(muere){
                     muertos.add(servivo);
                     esq++;
+                    esq_tot--;
                 }
             }
             if(servivo instanceof OsoPolar){
@@ -162,6 +303,7 @@ public class PoloSur {
                 if(muere){
                     muertos.add(servivo);
                     osos++;
+                    osos_tot--;
                 }
             }
             if(servivo instanceof Morsa){
@@ -169,6 +311,7 @@ public class PoloSur {
                 if(muere){
                     muertos.add(servivo);
                     morsas++;
+                    morsa_tot--;
                 }
                     
             }
@@ -177,6 +320,7 @@ public class PoloSur {
                 if(muere){
                     muertos.add(servivo);
                     focas++;
+                    focas_tot--;
                 }
             }
             if(servivo instanceof Pez){
@@ -184,6 +328,7 @@ public class PoloSur {
                 if(muere){
                     muertos.add(servivo);
                     peces++;
+                    peces_tot--;
                 }
             }
         }
@@ -354,9 +499,9 @@ public class PoloSur {
                     }   
                 }
             }
-            
+            if(focas_tot>0){
             seres_vivos.remove(indice_menor_masa);
-            focas_tot--;
+            focas_tot--;}
             //System.out.println("Se acaba de eliminar la foca numero: "+indice_menor_masa);
         }
         
@@ -401,8 +546,9 @@ public class PoloSur {
                     }  
                 }
             }
+            if(osos_tot>0){
             seres_vivos.remove(indice_menor_masa);
-            osos_tot--;
+            osos_tot--;}
             //System.out.println("Se acaba de eliminar el oso numero: "+indice_menor_masa);
         }
     }

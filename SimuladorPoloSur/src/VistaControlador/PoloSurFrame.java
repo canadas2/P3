@@ -42,8 +42,6 @@ public class PoloSurFrame extends javax.swing.JFrame {
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -78,14 +76,20 @@ public class PoloSurFrame extends javax.swing.JFrame {
         });
 
         jButton5.setText("Calentamiento global");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jButton6.setText("Captura de buque furtivo");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         jButton7.setText("Salir");
-
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
 
         javax.swing.GroupLayout PanelPrincipalLayout = new javax.swing.GroupLayout(PanelPrincipal);
         PanelPrincipal.setLayout(PanelPrincipalLayout);
@@ -94,40 +98,34 @@ public class PoloSurFrame extends javax.swing.JFrame {
             .addGroup(PanelPrincipalLayout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addGroup(PanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3)
-                    .addGroup(PanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jButton5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addComponent(jButton4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jButton7)
-                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(22, 22, 22)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
-                .addContainerGap())
+                    .addGroup(PanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jButton7)
+                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE))
+                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(204, Short.MAX_VALUE))
         );
         PanelPrincipalLayout.setVerticalGroup(
             PanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelPrincipalLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(PanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PanelPrincipalLayout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton2)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton3)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton4)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton5)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton6)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton7)
-                        .addGap(0, 9, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1))
-                .addContainerGap())
+                .addComponent(jButton1)
+                .addGap(18, 18, 18)
+                .addComponent(jButton2)
+                .addGap(18, 18, 18)
+                .addComponent(jButton3)
+                .addGap(18, 18, 18)
+                .addComponent(jButton4)
+                .addGap(18, 18, 18)
+                .addComponent(jButton5)
+                .addGap(18, 18, 18)
+                .addComponent(jButton6)
+                .addGap(18, 18, 18)
+                .addComponent(jButton7)
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -164,7 +162,38 @@ public class PoloSurFrame extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here: //MOSTRAR DETALLES
         String info = "";
-        ArrayList<SerVivo> seres_vivos = polo_sur.getSeres_vivos();
+        int esq,osos,morsa,foc,pez,dia,merluza,bacalao,raya;
+        Boolean calent, buques;
+        long krill;
+        Double agua;
+        
+        dia=polo_sur.getDia();
+        info+="Dias: "+dia+"\n";
+        agua = polo_sur.getTemp();
+       info+="Temperatura media del agua: "+agua+"\n";
+       
+       calent = polo_sur.getCalent();
+       buques = polo_sur.getBuques();
+       if(calent)
+           info+="Calentamiento global\n";
+       if(buques)
+           info+="Caza de buques furtivos\n";
+       
+        esq=polo_sur.getEsquimales();
+       osos=polo_sur.getOsos();
+       morsa=polo_sur.getMorsas();
+       foc=polo_sur.getFocas();
+       pez=polo_sur.getPeces();
+       info+="Num esquimales: "+esq+". Num osos: "+osos+". Num morsas: "+morsa+".\n Num focas: "+foc+". Num peces: "+pez+".\n";
+       polo_sur.calcularEspeciesPez();
+       merluza = polo_sur.getMerluzas();
+       raya = polo_sur.getRayas();
+       bacalao = polo_sur.getBacalaos();
+       info+="(Peces)Num de rayas: "+raya+", num de bacalaos: "+bacalao+", num de merluzas: "+merluza+"\n";
+       krill=polo_sur.getKrill();
+       info+="Num krill y plancton: "+krill+"\n";
+       
+       ArrayList<SerVivo> seres_vivos = polo_sur.getSeres_vivos();
         for(int i=0; i<seres_vivos.size(); i++){
             SerVivo ser_vivo = seres_vivos.get(i);
             info += ser_vivo.toString() + "\n";
@@ -174,6 +203,16 @@ public class PoloSurFrame extends javax.swing.JFrame {
        detalles.setVisible(true);
        detalles.AnyadirTexto(info);
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        polo_sur.CalentamientoGlobal();
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+        polo_sur.BuquesFurtivos();
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -220,7 +259,5 @@ public class PoloSurFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
 }

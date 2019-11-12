@@ -19,6 +19,8 @@ public class Pez extends SerVivo{
     
     public Pez(int dia, int masa){
         super(dia,masa);
+        dia_nac = dia;
+        masa_corp = masa;
         Random r = new Random();
         double prob_especie = 0.0+((r.nextDouble()*(99.9-0.0)));
         if(prob_especie <= 33.3){
@@ -33,6 +35,8 @@ public class Pez extends SerVivo{
     public Pez(int dia, int masa, String especie){
         super(dia,masa);
         this.especie = especie;
+        this.dia_nac = dia;
+        this.masa_corp = masa;
     }
 
     public String getEspecie() {
